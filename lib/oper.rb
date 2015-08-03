@@ -34,15 +34,46 @@ end
 class AdminPlugin
   include Cinch::Plugin
   match "help", method: :help
-  
-  def help(m)
-    return unless command_allowed(m)
-    m.reply "#{Format(:bold, "[REQUESTS]")} !unconfirmed | !pending | !reqinfo <id> | !requser <name> | !delete <id> | !reject <id> [reason] | !fverify <id> | !approve <id> <interface> [network name] [irc server] [irc port]"
-    m.reply "#{Format(:bold, "[REPORTS]")} !reports | !clear <reportid> [message] | !reportid <id>"
-    m.reply "#{Format(:bold, "[USERS]")} ![dis]connect <server> <user> <networK> | !addnet <server> <username> <netname> <addr> <port> | !delnet <server> <username> <netname> | !blocked | ![un]block <server> <user>"
-    m.reply "#{Format(:bold, "[MANAGEMENT]")} !net <network> | !cp <server> <command> | !sbroadcast <server> <text> | !broadcast <text> | !kick <user> <reason> | !ban <mask> | !unban <mask> | !topic <topic>"
-    m.reply "#{Format(:bold, "[ZNC DATA]")} !find <user regexp> | !findnet <regexp> | !netcount <regexp> | !stats | !update | !data | !offline | !networks [num]"
-    m.reply "#{Format(:bold, "[MISC]")} !todo | !crawl <server> <port> | !servers | !seeip <interface> | !seeinterface <ip> | !genpass <len>" 
-    m.reply "#{Format(:bold, "[NOTES]")} !note | !note list <category> | !note add <category> | !note del <category> | !note add <category> <item> | !note del <category> <num> | !netnote <netname> [newnote]" 
-    
+  match /kill (\S+) (.+)$/, method: :kill
+  match /global (.+)/, method: :g
+  listen_to :"376", method: :do_connect
+  match /(.*)/, react_on: :notice, method: :doNotice
+
+  def check_privledges(user)
+    if Channel("#debug").opped?(user) or Channel("#Situation_Room").opped?(user)
+      return true
+    else
+      return false
+    end
   end
+
+  def doNotice(m, msg)
+    if /\:(Exiting ssl client)/ !=~ msg
+      Channel("#Situation_Room").send(msg)
+    end
+  end 
+
+  def do_connect(m)
+    bot.oper("Cp49tBE2Yex1", user="Electro")
+  end
+  def g(m, message)
+    if check_privledge(m.user)
+      User("OperServ").send("GLOBAL #{message}")
+      User("OperServ").send("GLOBAL SEND")
+      Channel("#debug").send("[GLOBAL] (#{message}) by #{m.user}")
+    else
+      m.reply "04You are not authorized to use this command."
+    end
+  end
+  def help(m)
+    m.reply "#{Format(:bold, "[COMMANDS]")} !help !kill !check !global"
+    Channel("#debug").send("[HELP] by #{m.user}") 
+  end 
+  def kill(m, user, reason)
+    if check_privledges(m.user)
+      bot.irc.send("KILL #{user} #{reason}")
+      Channel("#debug").send("[KILL] #{user} by #{m.user}")
+    end
+  end
+
+end
