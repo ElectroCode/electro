@@ -31,7 +31,7 @@ class Numeric
   end
 end
 
-class AdminPlugin
+class OperPlugin
   include Cinch::Plugin
   match "help", method: :help
   match /kill (\S+) (.+)$/, method: :kill

@@ -16,7 +16,7 @@ $:.unshift File.dirname(__FILE__)
 require 'cinch'
 require 'cinch/plugins/identify'
 require 'yaml'
-require 'lib/admin'
+require 'lib/oper'
 require 'lib/logger'
 $config = YAML.load_file("config/config.yml")
 $bots = Hash.new
@@ -36,7 +36,7 @@ $config["servers"].each do |name|
       c.sasl.username = $config["bot"]["saslname"]
       c.sasl.password = $config["bot"]["saslpass"]
       c.channels = $config["bot"]["channels"]
-      c.plugins.plugins = [Cinch::Plugins::Identify, AdminPlugin]
+      c.plugins.plugins = [Cinch::Plugins::Identify, OperPlugin]
 #      c.plugins.options[Cinch::Plugins::Identify] = {
 #        :username => "ElectroCode",
 #        :password => "vS4ApeEU8SUn",
