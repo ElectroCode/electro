@@ -35,23 +35,15 @@ $config["servers"].each do |name|
       c.ssl.use = true
       c.sasl.username = $config["bot"]["saslname"]
       c.sasl.password = $config["bot"]["saslpass"]
+	  c.local_host = $config["bot"]["vhost"]
       c.channels = $config["bot"]["channels"]
       c.plugins.plugins = [Cinch::Plugins::Identify, OperPlugin]
-#      c.plugins.options[Cinch::Plugins::Identify] = {
-#        :username => "ElectroCode",
-#        :password => "vS4ApeEU8SUn",
-#        :type =>     :nickserv,
-#      }
     end
   end
 #  bot.loggers.clear
 #  bot.loggers << BNCLogger.new(name, File.open("log/irc.log", "a"))
 #  bot.loggers << BNCLogger.new(name, STDOUT)
 #  bot.loggers.level = :error
-  if $config["adminnet"] == name
-    $adminbot = bot
-  end
-  $bots[name] = bot
 end
 
 puts "Initialization complete. Connecting to IRC..."
