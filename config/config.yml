@@ -1,0 +1,20 @@
+bot:
+  nick: ElectroCode
+  user: ElectroCode
+  realname: ElectroCode / ElectroCode Network Administration Bot
+  saslname: ElectroCode
+  saslpass: vS4ApeEU8SUn
+  zncaddr: irc.electrocode.net
+  zncport: 6697
+  opername: Electro
+  operpass: Cp49tBE2Yex1
+  channels:
+    - "#Situation_Room"
+servers:
+  electrocode:
+    server: irc.electrocode.net
+    port: 6697
+    nick: ElectroCode
+    ssl: true
+admin:
+  channel: ES-Staff

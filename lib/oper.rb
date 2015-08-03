@@ -35,18 +35,45 @@ class AdminPlugin
   include Cinch::Plugin
   match "help", method: :help
   match /kill (\S+) (.+)$/, method: :kill
+  match /global (.+)/, method: :g
   listen_to :"376", method: :do_connect
- 
+  match /(.*)/, react_on: :notice, method: :doNotice
+
+  def check_privledges(user)
+    if Channel("#debug").opped?(user) or Channel("#Situation_Room").opped?(user)
+      return true
+    else
+      return false
+    end
+  end
+
+  def doNotice(m, msg)
+    if /\:(Exiting ssl client)/ !=~ msg
+      Channel("#Situation_Room").send(msg)
+    end
+  end 
+
   def do_connect(m)
     bot.oper("Cp49tBE2Yex1", user="Electro")
   end
+  def g(m, message)
+    if check_privledge(m.user)
+      User("OperServ").send("GLOBAL #{message}")
+      User("OperServ").send("GLOBAL SEND")
+      Channel("#debug").send("[GLOBAL] (#{message}) by #{m.user}")
+    else
+      m.reply "04You are not authorized to use this command."
+    end
+  end
   def help(m)
-    m.reply "#{Format(:bold, "[COMMANDS]")} !help !kill"
-    
+    m.reply "#{Format(:bold, "[COMMANDS]")} !help !kill !check !global"
+    Channel("#debug").send("[HELP] by #{m.user}") 
   end 
   def kill(m, user, reason)
-    puts $bots
-    puts $bots["electrocode"]
-    bot.irc.send("KILL #{user} #{reason}")
+    if check_privledges(m.user)
+      bot.irc.send("KILL #{user} #{reason}")
+      Channel("#debug").send("[KILL] #{user} by #{m.user}")
+    end
   end
+
 end
