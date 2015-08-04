@@ -5,7 +5,8 @@
 ####
 
 class WelcomePlugin
-	on :PRIVMSG, /(.*)/i, method: :doWelcome 
+	include Cinch::Plugin
+	match /(*)/, react_to: :PRIVMSG, method: :doWelcome 
 	
 	def doWelcome(m,bleh)
 		if m.channel == "#debug"
