@@ -5,10 +5,9 @@
 ####
 
 class WelcomePlugin
-	include Cinch::Plugin
-	listen_to :channel, method: :doWelcome
+	on :PRIVMSG, /(.*)/i, method: :doWelcome 
 	
-	def doWelcome(m)
+	def doWelcome(m,bleh)
 		if m.channel == "#debug"
 			Channel("#Situation_Room").send("A message was sent to #debug")
 		end
