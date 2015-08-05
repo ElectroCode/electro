@@ -6,10 +6,12 @@
 
 class WelcomePlugin
 	include Cinch::Plugin
-	match /(\S+) \(.*\) REGISTER\: (.*)$/i, react_on: :channel, use_prefix: false, method: :doWelcome 
+	listen_to: :CHANNEL, method: :doWelcome 
 	
-	def doWelcome(m, nick, channel)
+	def doWelcome(m)
 		if m.channel == "#debug"
+		  if m
+			puts m 
 			Channel("#Situation_Room").send("A channel #{channel} was registered by #{nick}")
 		end
 	end
