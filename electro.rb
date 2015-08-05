@@ -62,10 +62,8 @@ bot = Cinch::Bot.new do
 
 puts "Initialization complete. Connecting to IRC..."
 # Start the bots
-$bots.each do |key, bot|
-  puts "Starting IRC connection"
-  $threads << Thread.new { bot.start }
-end
+puts "Starting IRC connection"
+$threads << Thread.new { bot.start }
 puts "Connected!"
 sleep 5
 $threads.each { |t| t.join } # wait for other threads
