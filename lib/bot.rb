@@ -6,14 +6,14 @@
 
 class WelcomePlugin
 	include Cinch::Plugin
-	listen_to :CHANNEL, method: :doWelcome 
 	
-	def doWelcome(m)
-		if m.channel == "#debug"
-			if m
-				puts m 
-				Channel("#Situation_Room").send("A channel #{channel} was registered by #{nick}")
-			end
-		end
+	match /join (\S+)/, method: :join
+	match /part (\S+)/, method: :part
+	
+	def join(m, channel)
+		Channel(channel).join
+	end
+	def part(m, channel)
+		Channel(channel).part
 	end
 end
