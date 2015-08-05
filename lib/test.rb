@@ -19,12 +19,17 @@ class TestPlugin
 	end
   
 	def doRegister(m, nick, nick2, channel)
+		nick2 = nick2.tr('()')
 		if m.channel.name == "#debug"
 			default_bot = $config["bot"]["default-bot"]
-			User("OperServ").send("OVERRIDE #{nick2} BotServ ASSIGN #{channel} #{default_bot}")
-			Channel(channel).send("Welcome to ElectroCode #{nick} aka #{nick2}")
-			Channel(channel).send("Please enjoy your stay!")
 			Channel("#Situation_Room").send("03[REGISTER] #{nick} => #{channel}")
+			User("OperServ").send("OVERRIDE #{nick2} BotServ ASSIGN #{channel} #{default_bot}")
+			bot.join(channel)
+			Channel(channel).send("Welcome to ElectroCode #{nick} (#{nick2}),  Please enjoy your stay!")
+			Channel(channel).send("I also assigned you a bot to start off! His name is Bots as you can see.")
+			Channel(channel).send("If you need help with him, try going through /cs help")
+			Channel(channel).send("If that doesn't work, then join #help and see if one of our users can help you!")
+
 		end
 	end
 	
