@@ -6,7 +6,7 @@
 
 class WelcomePlugin
 	include Cinch::Plugin
-	listen_to: :CHANNEL, method: :doWelcome 
+	listen_to :CHANNEL, method: :doWelcome 
 	
 	def doWelcome(m)
 		if m.channel == "#debug"
