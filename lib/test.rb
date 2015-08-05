@@ -6,7 +6,7 @@
 
 class TestPlugin
 	include Cinch::Plugin
-	listen_to :channel, method: :doRegister
+	match /(\S+) REGISTER: (\S+)/, use_prefix: false, method: :doRegister
 	match /join (.*)/, method: :join
 	match /part (.*)/, method: :part
 
