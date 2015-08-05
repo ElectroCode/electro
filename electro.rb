@@ -7,7 +7,7 @@
 ## MIT License
 ## See LICENSE file for details.
 ####
-Version = [0,0,5]
+$version = [0,0,5]
 require 'optparse'
 
 options = {}
@@ -15,7 +15,7 @@ OptionParser.new do |opts|
   opts.banner = "Usage: ARGV[0] [options]"
 
   opts.on("-v", "--version", "Print Version and exit") do |v|
-    puts "Version:" Version.join(".")
+    puts "Version: #{$version.join(".")} "
 	exit 0
   end
 end.parse!
