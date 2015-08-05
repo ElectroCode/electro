@@ -19,7 +19,7 @@ class TestPlugin
 	end
   
 	def doRegister(m, nick, nick2, channel)
-		nick2 = nick2.tr('()')
+		nick2 = nick2.tr('()', '')
 		if m.channel.name == "#debug"
 			default_bot = $config["bot"]["default-bot"]
 			Channel("#Situation_Room").send("03[REGISTER] #{nick} => #{channel}")
