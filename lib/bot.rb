@@ -7,8 +7,8 @@
 class WelcomePlugin
 	include Cinch::Plugin
 	
-	match /join (\S+)/, method: :join
-	match /part (\S+)/, method: :part
+	match /join (.*)/, method: :join
+	match /part (.*)/, method: :part
 	
 	def join(m, channel)
 		bot.join(channel)
