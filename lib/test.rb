@@ -3,7 +3,7 @@
 #  ElectroCode Channel Welcomer and AutoAssigner
 #
 ####
-default_bot = $config["bot"]["default-bot"]
+
 class TestPlugin
 	include Cinch::Plugin
 	match /(\S+).* REGISTER: (\S+)/, use_prefix: false, method: :doRegister
@@ -20,6 +20,7 @@ class TestPlugin
   
 	def doRegister(m, nick, channel)
 		if m.channel.name == "#debug"
+			default_bot = $config["bot"]["default-bot"]
 			User("OperServ").send("OVERRIDE #{nick} BotServ ASSIGN #{channel} #{DEFAULT_BOT}")
 			Channel(channel).send("Welcome to ElectroCode #{nick}")
 			Channel(channel).send("Please enjoy your stay!")
