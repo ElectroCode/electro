@@ -27,7 +27,7 @@ class TestPlugin
 	def join(m, channel)
 		bot.join(channel)
 	end
-	def leave(m, channel)
+	def part(m, channel)
 		bot.join(channel)
 	end
 end
