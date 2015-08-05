@@ -11,9 +11,9 @@ class WelcomePlugin
 	match /part (\S+)/, method: :part
 	
 	def join(m, channel)
-		Channel(channel).join
+		bot.join(channel)
 	end
-	def part(m, channel)
-		Channel(channel).part
+	def leave(m, channel)
+		bot.join(channel)
 	end
 end
