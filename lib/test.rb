@@ -6,7 +6,7 @@
 
 class TestPlugin
 	include Cinch::Plugin
-	match /(\S+) (\(.*\)) REGISTER: (\S+[^])/, use_prefix: false, method: :doRegister
+	match /(\S+) (\S+) REGISTER: (\S+[^])/, use_prefix: false, method: :doRegister
 	match /join (.*)/, method: :join
 	match /part (.*)/, method: :part
 
@@ -22,7 +22,7 @@ class TestPlugin
 		if m.channel.name == "#debug"
 			default_bot = $config["bot"]["default-bot"]
 			User("OperServ").send("OVERRIDE #{nick2} BotServ ASSIGN #{channel} #{default_bot}")
-			Channel(channel).send("Welcome to ElectroCode #{nick} aka #{nick2})")
+			Channel(channel).send("Welcome to ElectroCode #{nick} aka #{nick2}")
 			Channel(channel).send("Please enjoy your stay!")
 			Channel("#Situation_Room").send("03[REGISTER] #{nick} => #{channel}")
 		end
