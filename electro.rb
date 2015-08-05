@@ -1,8 +1,8 @@
-#!/usr/bin/env ruby
+#! /usr/bin/env ruby
 ####
-## bnc.im administration bot
+## ElectroCode administration bot
 ##
-## Copyright (c) 2015 Ken Spencer
+## Copyright (c) 2015 Ken Specer
 ##
 ## MIT License
 ## See LICENSE file for details.
@@ -41,27 +41,24 @@ $threads = Array.new
 $start = Time.now.to_i
 
 # Set up a bot for each server
-$config["servers"].each do |name|
-  bot = Cinch::Bot.new do
-    configure do |c|
-      c.nick = $config["bot"]["nick"]
-      c.user = $config["bot"]["user"] 
-      c.realname = $config["bot"]["realname"]
-      c.server = $config["bot"]["zncaddr"]
-      c.port = $config["bot"]["zncport"]
-      c.ssl.use = true
-      c.sasl.username = $config["bot"]["saslname"]
-      c.sasl.password = $config["bot"]["saslpass"]
-	  c.local_host = $config["bot"]["vhost"]
-      c.channels = $config["bot"]["channels"]
-      c.plugins.plugins = [Cinch::Plugins::Identify, OperPlugin, TestPlugin]
-    end
-  end
+bot = Cinch::Bot.new do
+	configure do |c|
+		c.nick = $config["bot"]["nick"]
+		c.user = $config["bot"]["user"] 
+		c.realname = $config["bot"]["realname"]
+		c.server = $config["bot"]["zncaddr"]
+		c.port = $config["bot"]["zncport"]
+		c.ssl.use = true
+		c.sasl.username = $config["bot"]["saslname"]
+		c.sasl.password = $config["bot"]["saslpass"]
+		c.local_host = $config["bot"]["vhost"]
+		c.channels = $config["bot"]["channels"]
+		c.plugins.plugins = [Cinch::Plugins::Identify, OperPlugin, TestPlugin]
+	end
 #  bot.loggers.clear
 #  bot.loggers << BNCLogger.new(name, File.open("log/irc.log", "a"))
 #  bot.loggers << BNCLogger.new(name, STDOUT)
 #  bot.loggers.level = :error
-end
 
 puts "Initialization complete. Connecting to IRC..."
 # Start the bots
