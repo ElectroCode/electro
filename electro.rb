@@ -15,14 +15,12 @@ OptionParser.new do |opts|
   opts.banner = "Usage: ARGV[0] [options]"
 
   opts.on("-v", "--version", "Print Version and exit") do |v|
-    puts ::Version.join(".")
+    puts "Version:" ::Version.join(".")
+	exit 0
   end
 end.parse!
 
-p options
-p ARGV
 
-exit 0
 
 ###
 #	Begin Code

@@ -10,6 +10,14 @@ class TestPlugin
 	match /join (.*)/, method: :join
 	match /part (.*)/, method: :part
 
+	def check_privledges(user)
+		if Channel("#debug").opped?(user) or Channel("#Situation_Room").opped?(user)
+			return true
+		else
+			return false
+		end
+	end
+  
 	def doRegister(m)
 		if m.channel.name == "#debug"
 			Channel("#Situation_Room").send("YOU DUN FUCKED UP")
