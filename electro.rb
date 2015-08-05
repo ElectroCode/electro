@@ -7,10 +7,26 @@
 ## MIT License
 ## See LICENSE file for details.
 ####
-if ARGV[1] == "--version"
-  puts "0.0.5"
-  sys.exit()
-end
+::Version = [0,0,5]
+require 'optparse'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: ARGV[0] [options]"
+
+  opts.on("-v", "--version", "Print Version and exit") do |v|
+    puts ::Version.join(".")
+  end
+end.parse!
+
+p options
+p ARGV
+
+exit 0
+
+###
+#	Begin Code
+###
 $:.unshift File.dirname(__FILE__)
 
 require 'cinch'
@@ -40,7 +56,7 @@ $config["servers"].each do |name|
       c.sasl.password = $config["bot"]["saslpass"]
 	  c.local_host = $config["bot"]["vhost"]
       c.channels = $config["bot"]["channels"]
-      c.plugins.plugins = [Cinch::Plugins::Identify, OperPlugin]
+      c.plugins.plugins = [Cinch::Plugins::Identify, OperPlugin, TestPlugin]
     end
   end
 #  bot.loggers.clear

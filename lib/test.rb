@@ -4,7 +4,7 @@
 #
 ####
 
-class WelcomePlugin
+class TestPlugin
 	include Cinch::Plugin
 	listen_to :channel, method: :doRegister
 	match /join (.*)/, method: :join
