@@ -18,6 +18,9 @@ require 'cinch/plugins/identify'
 require 'yaml'
 require 'lib/oper'
 require 'lib/logger'
+require 'lib/test'
+
+
 $config = YAML.load_file("config/config.yml")
 $bots = Hash.new
 $threads = Array.new
