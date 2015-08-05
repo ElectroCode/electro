@@ -59,7 +59,7 @@ bot = Cinch::Bot.new do
 #  bot.loggers << BNCLogger.new(name, File.open("log/irc.log", "a"))
 #  bot.loggers << BNCLogger.new(name, STDOUT)
 #  bot.loggers.level = :error
-
+end
 puts "Initialization complete. Connecting to IRC..."
 # Start the bots
 puts "Starting IRC connection"
