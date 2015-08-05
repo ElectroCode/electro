@@ -3,7 +3,7 @@
 #  ElectroCode Channel Welcomer and AutoAssigner
 #
 ####
-DEFAULT_BOT = $config["bot"]["default-bot"]
+default_bot = $config["bot"]["default-bot"]
 class TestPlugin
 	include Cinch::Plugin
 	match /(\S+).* REGISTER: (\S+)/, use_prefix: false, method: :doRegister
@@ -28,9 +28,13 @@ class TestPlugin
 	end
 	
 	def join(m, channel)
-		bot.join(channel)
+		if check_privledges(m.user)
+			bot.join(channel)
+		end
 	end
 	def part(m, channel)
-		bot.part(channel)
+		if check_privledges(m.user)
+			bot.part(channel)
+		end
 	end
 end
