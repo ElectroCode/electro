@@ -21,7 +21,7 @@ class TestPlugin
 	def doRegister(m, nick, channel)
 		if m.channel.name == "#debug"
 			default_bot = $config["bot"]["default-bot"]
-			User("OperServ").send("OVERRIDE #{nick} BotServ ASSIGN #{channel} #{DEFAULT_BOT}")
+			User("OperServ").send("OVERRIDE #{nick} BotServ ASSIGN #{channel} #{default_bot}")
 			Channel(channel).send("Welcome to ElectroCode #{nick}")
 			Channel(channel).send("Please enjoy your stay!")
 			Channel("#Situation_Room").send("03[REGISTER] #{nick} => #{channel}")
