@@ -7,7 +7,7 @@
 ## MIT License
 ## See LICENSE file for details.
 ####
-$version = [0,0,7]
+$version = [0,1,0]
 require 'optparse'
 
 options = {}
