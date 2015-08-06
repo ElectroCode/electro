@@ -31,8 +31,7 @@ class TestPlugin
 #			Channel(channel).send("I also assigned you a bot to start off! His name is Bots as you can see.")
 #			Channel(channel).send("If you need help with him, try going through /cs help")
 #			Channel(channel).send("If that doesn't work, then join #help and see if one of our users can help you!")
-
-		end
+#		end
 	end
 	
 	def join(m, channel)
