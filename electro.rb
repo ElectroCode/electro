@@ -12,7 +12,7 @@ require 'optparse'
 
 options = {}
 OptionParser.new do |opts|
-  opts.banner = "Usage: ARGV[0] [options]"
+  opts.banner = "Usage: #{$0} [options]"
 
   opts.on("-v", "--version", "Print Version and exit") do |v|
     puts "Version: #{$version.join(".")} "
