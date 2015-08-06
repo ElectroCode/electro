@@ -10,7 +10,13 @@ class TestPlugin
 	match /Channels\s+: ([0-9]+) founder/,use_prefix: false, method: :doCheck
 	match /join (.*)/, method: :join
 	match /part (.*)/, method: :part
-
+	
+	def debuglog(message)
+		Channel("#debug").send(message)
+	end
+	def sitlog(message)
+		Channel("#Situation_Room").send(message)
+	end
 	def check_privledges(user)
 		if Channel("#debug").opped?(user) or Channel("#Situation_Room").opped?(user)
 			return true
@@ -19,6 +25,7 @@ class TestPlugin
 		end
 	end
 	def doCheck(m, channum)
+		$channelcount = channum
 		channum.to_i!
 		if channum == 0
 			new = 1
@@ -31,7 +38,7 @@ class TestPlugin
 			channel = channel.tr('', '')
 			if m.channel.name == "#debug"
 				default_bot = $config["bot"]["default-bot"]
-				Channel("#Situation_Room").send("03[REGISTER] #{nick} => #{channel}")
+				sitlog("[03REGISTER] #{nick} => #{channel}")
 				User("OperServ").send("OVERRIDE #{nick2} BotServ ASSIGN #{channel} #{default_bot}")
 				bot.join(channel)
 				Channel(channel).send("Welcome to ElectroCode #{nick} (#{nick2}),  Please enjoy your stay!")
@@ -40,17 +47,21 @@ class TestPlugin
 				Channel(channel).send("If that doesn't work, then join #help and see if one of our users can help you!")
 			end
 		else
-			Channel("#Situation_Room").send("#{nick} (#{nick2}) is not new. Not Welcoming")
+			sitlog("[04NO WELCOME] =>#{nick} #{nick2} ; var channum = [04#{$channelcount}] > 0")
+			debuglog("[NO WELCOME] =>#{nick} #{nick2} ; var channum = [#{$channelcount}] > 0")
 		end
 	end
 	
 	def join(m, channel)
 		if check_privledges(m.user)
+			sitlog("03[JOIN] #{channel} by #{m.user}")
 			bot.join(channel)
 		end
 	end
-	def part(m, channel)
+	def part(m, channel, reason=nil)
 		if check_privledges(m.user)
+			reason = bot.name if reason = nil
+			sitlog("03[JOIN] #{channel} by #{m.user} Reason: #{reason}")
 			bot.part(channel)
 		end
 	end
