@@ -25,7 +25,7 @@ class TestPlugin
 		end
 	end
 	def doCheck(m, channum)
-		$channelcount = channum
+		puts channum
 		channum.to_i!
 		if channum == 0
 			new = 1
@@ -47,8 +47,8 @@ class TestPlugin
 				Channel(channel).send("If that doesn't work, then join #help and see if one of our users can help you!")
 			end
 		else
-			sitlog("[04NO WELCOME] =>#{nick} #{nick2} ; var channum = [04#{$channelcount}] > 0")
-			debuglog("[NO WELCOME] =>#{nick} #{nick2} ; var channum = [#{$channelcount}] > 0")
+			sitlog("[04NO WELCOME] => #{nick} #{nick2} / var channum > 0")
+			debuglog("[04NO WELCOME] => #{nick} #{nick2} / var channum > 0")
 		end
 	end
 	
