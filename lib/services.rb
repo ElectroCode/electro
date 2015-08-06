@@ -7,7 +7,7 @@ require 'time'
 class ServicesPlugin
 	include Cinch::Plugin
 	match /(\S+) (\S+) REGISTER: (\S+)/, use_prefix: false, method: :doRegister
-	match /Channels\s+: ([0-9]+) founder/,use_prefix: false, method: :doCheck
+	match /Channels\s+:\s+([0-9]+) founder/, use_prefix: false, method: :doCheck
 	match /join (.*)/, method: :join
 	match /part (.*)/, method: :part
 	
@@ -28,9 +28,7 @@ class ServicesPlugin
 
 	def doCheck(m, channum)
 		puts channum
-		
-		channum.to_i!
-		if channum == 0
+		if channum == "0"
 			$new = 1
 		end
 	end
@@ -63,7 +61,7 @@ class ServicesPlugin
 	end
 	def part(m, channel, reason=nil)
 		if check_privledges(m.user)
-			reason = bot.name if reason = nil
+			reason = bot.name if reason == nil
 			sitlog("03[JOIN] #{channel} by #{m.user} Reason: #{reason}")
 			bot.part(channel)
 		end
