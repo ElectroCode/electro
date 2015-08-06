@@ -21,12 +21,12 @@ class TestPlugin
 	def doCheck(m, channum)
 		channum.to_i!
 		if channum > 0
-			notnew = 1
+			$notnew = 1
 		end
 	end
 	def doRegister(m, nick, nick2, channel)
 		User("NickServ").send("INFO #{nick}")
-		if notnew != 1
+		if $notnew != 1
 			nick2 = nick2.tr('()', '')
 			channel = channel.tr('', '')
 			if m.channel.name == "#debug"
@@ -39,6 +39,8 @@ class TestPlugin
 				Channel(channel).send("If you need help with him, try going through /cs help")
 				Channel(channel).send("If that doesn't work, then join #help and see if one of our users can help you!")
 			end
+		else
+			return
 		end
 	end
 	
