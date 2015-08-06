@@ -7,7 +7,7 @@
 class TestPlugin
 	include Cinch::Plugin
 	match /(\S+) (\S+) REGISTER: (\S+)/, use_prefix: false, method: :doRegister
-	match /Channels\s+: ([0]) founder/,use_prefix: false, method: :doCheck
+	match /Channels\s+: ([0-9]+) founder/,use_prefix: false, method: :doCheck
 	match /join (.*)/, method: :join
 	match /part (.*)/, method: :part
 
