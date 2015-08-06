@@ -20,13 +20,13 @@ class TestPlugin
 	end
 	def doCheck(m, channum)
 		channum.to_i!
-		if channum > 0
-			$notnew = 1
+		if channum == 0
+			new = 1
 		end
 	end
 	def doRegister(m, nick, nick2, channel)
 		User("NickServ").send("INFO #{nick}")
-		if $notnew != 1
+		if $new == 1
 			nick2 = nick2.tr('()', '')
 			channel = channel.tr('', '')
 			if m.channel.name == "#debug"
