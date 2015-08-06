@@ -32,7 +32,7 @@ require 'cinch/plugins/identify'
 require 'yaml'
 require 'lib/oper'
 require 'lib/logger'
-require 'lib/test'
+require 'lib/services'
 
 
 $config = YAML.load_file("config/config.yml")
@@ -53,7 +53,7 @@ bot = Cinch::Bot.new do
 		c.sasl.password = $config["bot"]["saslpass"]
 		c.local_host = $config["bot"]["vhost"]
 		c.channels = $config["bot"]["channels"]
-		c.plugins.plugins = [Cinch::Plugins::Identify, OperPlugin, TestPlugin]
+		c.plugins.plugins = [Cinch::Plugins::Identify, OperPlugin, ServicesPlugin]
 	end
 #  bot.loggers.clear
 #  bot.loggers << BNCLogger.new(name, File.open("log/irc.log", "a"))

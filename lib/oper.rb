@@ -37,7 +37,7 @@ class OperPlugin
   match /kill (\S+) (.+)$/, method: :kill
   match /global (.+)/, method: :g
   listen_to :"376", method: :do_connect
-  match /(.*)/, react_on: :notice, method: :doNotice
+#  match /(.*)/, react_on: :notice, method: :doConnect
 
   def check_privledges(user)
     if Channel("#debug").opped?(user) or Channel("#Situation_Room").opped?(user)
@@ -57,7 +57,7 @@ class OperPlugin
     bot.oper("Cp49tBE2Yex1", user="Electro")
   end
   def g(m, message)
-    if check_privledge(m.user)
+    if check_privledges(m.user)
       User("OperServ").send("GLOBAL #{message}")
       User("OperServ").send("GLOBAL SEND")
       Channel("#debug").send("[GLOBAL] (#{message}) by #{m.user}")
