@@ -40,7 +40,7 @@ class TestPlugin
 				Channel(channel).send("If that doesn't work, then join #help and see if one of our users can help you!")
 			end
 		else
-			return
+			Channel("#Situation_Room").send("#{nick} (#{nick2}) is not new. Not Welcoming")
 		end
 	end
 	
