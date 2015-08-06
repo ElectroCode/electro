@@ -7,7 +7,7 @@
 ## MIT License
 ## See LICENSE file for details.
 ####
-$version = [0,1,0]
+$version = [0,1,2]
 require 'optparse'
 
 options = {}
@@ -33,7 +33,7 @@ require 'yaml'
 require 'lib/oper'
 require 'lib/logger'
 require 'lib/services'
-
+require 'lib/ctcp'
 
 $config = YAML.load_file("config/config.yml")
 $bots = Hash.new
@@ -53,7 +53,7 @@ bot = Cinch::Bot.new do
 		c.sasl.password = $config["bot"]["saslpass"]
 		c.local_host = $config["bot"]["vhost"]
 		c.channels = $config["bot"]["channels"]
-		c.plugins.plugins = [Cinch::Plugins::Identify, OperPlugin, ServicesPlugin]
+		c.plugins.plugins = [Cinch::Plugins::Identify, OperPlugin, ServicesPlugin, CTCPPlugin]
 	end
 #  bot.loggers.clear
 #  bot.loggers << BNCLogger.new(name, File.open("log/irc.log", "a"))
