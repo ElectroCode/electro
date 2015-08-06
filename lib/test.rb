@@ -25,10 +25,11 @@ class TestPlugin
 		end
 	end
 	def doCheck(m, channum)
-		puts channum
+		log channum
+		
 		channum.to_i!
 		if channum == 0
-			new = 1
+			$new = 1
 		end
 	end
 	def doRegister(m, nick, nick2, channel)
