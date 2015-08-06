@@ -3,13 +3,14 @@
 #  ElectroCode Channel Welcomer and AutoAssigner
 #
 ####
-
+require 'time'
 class ServicesPlugin
 	include Cinch::Plugin
 	match /(\S+) (\S+) REGISTER: (\S+)/, use_prefix: false, method: :doRegister
 	match /Channels\s+: ([0-9]+) founder/,use_prefix: false, method: :doCheck
 	match /join (.*)/, method: :join
 	match /part (.*)/, method: :part
+	
 	
 	def debuglog(message)
 		Channel("#debug").send(message)
@@ -24,6 +25,7 @@ class ServicesPlugin
 			return false
 		end
 	end
+
 	def doCheck(m, channum)
 		puts channum
 		
