@@ -22,6 +22,8 @@ class TestPlugin
 		channum.to_i!
 		if channum > 0
 			notnew = 1
+		end
+	end
 	def doRegister(m, nick, nick2, channel)
 		User("NickServ").send("INFO #{nick}")
 		if notnew != 1
