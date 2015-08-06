@@ -25,7 +25,7 @@ class TestPlugin
 		end
 	end
 	def doCheck(m, channum)
-		log channum
+		puts channum
 		
 		channum.to_i!
 		if channum == 0
@@ -42,7 +42,7 @@ class TestPlugin
 				sitlog("[03REGISTER] #{nick} => #{channel}")
 				User("OperServ").send("OVERRIDE #{nick2} BotServ ASSIGN #{channel} #{default_bot}")
 				bot.join(channel)
-				Channel(channel).send("Welcome to ElectroCode #{nick} (#{nick2}),  Please enjoy your stay!")
+				Channel(channel).send("Welcome to ElectroCode #{nick} #{nick2},  Please enjoy your stay!")
 				Channel(channel).send("I also assigned you a bot to start off! His name is Bots as you can see.")
 				Channel(channel).send("If you need help with him, try going through /cs help")
 				Channel(channel).send("If that doesn't work, then join #help and see if one of our users can help you!")
