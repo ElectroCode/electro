@@ -12,22 +12,22 @@ class CTCPPlugin
 
 	
 	def replyVersion(m) 
-		User(m.user).notice("VERSION ElectroCode Administration Bot / Version #{$version.join(".")}")
+		User(m.user).notice("\u0001VERSION\u0001ElectroCode Administration Bot / Version #{$version.join(".")}")
 	end
 	def replyTime(m) 
-		User(m.user).notice("TIME #{Time.now.strftime("%a %b %d %H:%M:%S %Z %Y")}")
+		User(m.user).notice("\u0001TIME\u0001#{Time.now.strftime("%a %b %d %H:%M:%S %Z %Y")}")
 	end
 	def replyFinger(m) 
-		User(m.user).notice("FINGER Ouch! Don't put your finger there!")
+		User(m.user).notice("\u0001FINGER\u0001Ouch! Don't put your finger there!")
 	end
 	def replySource(m) 
-		User(m.user).notice("SOURCE Source: https://github.com/ElectroCode/electro")
+		User(m.user).notice("\u0001SOURCE\u0001Source: https://github.com/ElectroCode/electro")
 	end
 	def replyOwner(m)
-		User(m.user).notice("OWNER Owner: ZeeNoodleyGamer / Iota")
+		User(m.user).notice("\u0001OWNER\u0001Owner: ZeeNoodleyGamer / Iota")
 	end
 	def replyPing(m) 
-		User(m.user).notice("PING #{}m.args.join(" ")})
+		User(m.user).notice("\u0001PING\u0001" m.args.join(" ")})
 	end
 	def replyClientinfo(m) 
 		User(m.user).notice("CLIENTINFO VERSION TIME FINGER SOURCE PING CLIENTINFO OWNER")
