@@ -2,13 +2,13 @@ require 'time'
 
 class CTCPPlugin
 	include Cinch::Plugin
-	match /VERSION/, react_on: :private, method: :replyVersion
-	match /TIME/, react_on: :private, method: :replyTime
-	match /FINGER/, react_on: :private, method: :replyFinger
-	match /SOURCE/, react_on: :private, method: :replySource
-	match /PING/, react_on: :private, method: :replyPing
-	match /OWNER/, react_on: :private, method: :replyOwner
-	match /CLIENTINFO/, react_on: :private, method: :replyClientinfo
+	match /VERSION/, method: :replyVersion
+	match /TIME/, method: :replyTime
+	match /FINGER/, method: :replyFinger
+	match /SOURCE/, method: :replySource
+	match /PING/, method: :replyPing
+	match /OWNER/, method: :replyOwner
+	match /CLIENTINFO/, method: :replyClientinfo
 
 	
 	def replyVersion(m) 
