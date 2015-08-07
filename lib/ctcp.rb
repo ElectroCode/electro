@@ -27,7 +27,7 @@ class CTCPPlugin
 		User(m.user).notice("\u0001OWNER\u0001Owner: ZeeNoodleyGamer / Iota")
 	end
 	def replyPing(m) 
-		User(m.user).notice("\u0001PING\u0001" m.args.join(" ")})
+		User(m.user).notice("\u0001PING\u0001" + m.args.join(" "))
 	end
 	def replyClientinfo(m) 
 		User(m.user).notice("\u0001CLIENTINFO\u0001 VERSION TIME FINGER SOURCE PING CLIENTINFO OWNER")
