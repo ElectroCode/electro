@@ -2,34 +2,34 @@ require 'time'
 
 class CTCPPlugin
 	include Cinch::Plugin
-	match /VERSION/, method: :replyVersion
-	match /TIME/, method: :replyTime
-	match /FINGER/, method: :replyFinger
-	match /SOURCE/, method: :replySource
-	match /PING/, method: :replyPing
-	match /OWNER/, method: :replyOwner
-	match /CLIENTINFO/, method: :replyClientinfo
-
 	
-	def replyVersion(m) 
-		User(m.user).notice("\u0001VERSION\u0001ElectroCode Administration Bot / Version #{$version.join(".")}")
+	ctcp :version
+    ctcp :time
+	ctcp :finger
+    ctcp :ping
+	ctcp :owner
+    ctcp :source
+    ctcp :clientinfo
+    def ctcp_version(m)
+		m.ctcp_reply "ElectroCode Administration Bot / Version #{$version.join(".")}" if reply_to_ctcp?(:version)
 	end
-	def replyTime(m) 
-		User(m.user).notice("\u0001TIME\u0001#{Time.now.strftime("%a %b %d %H:%M:%S %Z %Y")}")
+
+	def ctcp_time(m)
+		m.ctcp_reply Time.now.strftime("%a %b %d %H:%M:%S %Z %Y") if reply_to_ctcp?(:time)
 	end
-	def replyFinger(m) 
-		User(m.user).notice("\u0001FINGER\u0001Ouch! Don't put your finger there!")
+	def ctcp_finger(m)
+		m.ctcp_reply "Ouch! Don't put your finger there!" if reply_to_ctcp?(:finger)
+	def ctcp_ping(m)
+		m.ctcp_reply m.ctcp_args.join(" ") if reply_to_ctcp?(:ping)
 	end
-	def replySource(m) 
-		User(m.user).notice("\u0001SOURCE\u0001Source: https://github.com/ElectroCode/electro")
+    def ctcp_source(m)
+	m.ctcp_reply "https://github.com/ElectroCode/electro" if reply_to_ctcp?(:source)
 	end
-	def replyOwner(m)
-		User(m.user).notice("\u0001OWNER\u0001Owner: ZeeNoodleyGamer / Iota")
+	def ctcp_clientinfo(m)
+		m.ctcp_reply "VERSION TIME FINGER SOURCE PING CLIENTINFO OWNER" if reply_to_ctcp?(:clientinfo)
 	end
-	def replyPing(m) 
-		User(m.user).notice("\u0001PING\u0001" + m.args.join(" "))
-	end
-	def replyClientinfo(m) 
-		User(m.user).notice("\u0001CLIENTINFO\u0001 VERSION TIME FINGER SOURCE PING CLIENTINFO OWNER")
+	def reply_to_ctcp?(command)
+		commands = config[:commands]
+		commands.nil? || commands.include?(command)
 	end
 end
