@@ -19,6 +19,7 @@ class CTCPPlugin
 	end
 	def ctcp_finger(m)
 		m.ctcp_reply "Ouch! Don't put your finger there!" if reply_to_ctcp?(:finger)
+	end
 	def ctcp_ping(m)
 		m.ctcp_reply m.ctcp_args.join(" ") if reply_to_ctcp?(:ping)
 	end
